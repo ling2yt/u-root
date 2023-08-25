@@ -7,10 +7,14 @@ package ldd
 import (
 	"fmt"
 	"path/filepath"
+	"os"
 )
 
 // LdSo finds the loader binary.
 func LdSo(bit64 bool) (string, error) {
+	if os.Getenv("LD_LIB_PATH") != "" {
+		return os.Getenv("LD_LIB_PATH"), nil
+	}
 	bits := 32
 	if bit64 {
 		bits = 64
